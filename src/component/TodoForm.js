@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import useStore from '../useStore';
+import React, { useContext, useState } from 'react';
+import { TodoContext } from '../App';
 
 const TodoForm = () => {
-    const { todo } = useStore();
+    const todoStore = useContext(TodoContext);
     const [text, setText] = useState('');
 
     const onSubmit = e => {
         e.preventDefault();
-        todo.addTodo(text);
+        todoStore.addTodo(text);
         setText('');
     };
 

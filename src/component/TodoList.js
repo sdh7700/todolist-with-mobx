@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useObserver } from 'mobx-react';
-import useStore from '../useStore';
 import TodoItem from './TodoItem';
+import { TodoContext } from '../App';
 
 const TodoList = () => {
-    const {
-        todo: { todoData },
-    } = useStore();
+    const todoStore = useContext(TodoContext);
 
     return useObserver(() => (
-        <section>
-            {todoData.map((v) => (
-                <TodoItem data={v} key={`todoData_${v.id}`} />
-            ))}
-        </section>
-    ));
+        <>
+            <section>
+                {todoStore.todos.map(todo => (
+                    <TodoItem data={todo} key={todo.id} />
+                ))}
+            </section>
+            &nbsp;
+            <div>Tasks Left: {todoStore.unfinishedTodoCount}</div>
+        </>
+    ))
 };
 
 export default TodoList;
